@@ -1,7 +1,3 @@
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
-
-# give me this in md format 𝐒𝐧𝐨𝐰𝐟𝐥𝐚𝐤𝐞_𝐎𝐩𝐭𝐢𝐦𝐢𝐳𝐚𝐭𝐢𝐨𝐧:-
-
 Tired of Slow Snowflake Queries? Here’s How Cluster Key Optimization Can Help!
 𝐏𝐫𝐨𝐛𝐥𝐞𝐦:
 Applying functions like TO_DATE() directly in WHERE clauses on clustered key columns blocks Snowflake’s micro-partition pruning. This causes scanning of almost all micro-partitions, slowing queries and increasing costs.
@@ -98,30 +94,4 @@ WHERE order_date_dt = '2024-07-01';
 ## 𝐑𝐞𝐬𝐮𝐥𝐭:
 
 Filtering on the clustered column drastically reduces scanned data and query time by almost 40%, making your Snowflake workloads faster and cost-efficient.
-
----
-
-Activity  
-[](https://github.com/V4Data)  
-Ad  
-```
-
-You can copy this entire content into a `.md` file like `snowflake_cluster_key_optimization.md` and upload it to GitHub or share it directly.
-
-Let me know if you want me to help with repository setup or further formatting!
-<span style="display:none">[^1][^2][^3][^4][^5][^6]</span>
-
-<div style="text-align: center">⁂</div>
-
-[^1]: https://docs.snowflake.com/en/user-guide/tables-clustering-keys
-
-[^2]: https://www.secoda.co/learn/alter-table-cluster-by-snowflake
-
-[^3]: https://seemoredata.io/blog/multiple-cluster-keys-snowflake-optimizatio/
-
-[^4]: https://www.chaosgenius.io/blog/snowflake-clustering/
-
-[^5]: https://www.youtube.com/watch?v=rh4j4nJY8pU
-
-[^6]: https://select.dev/posts/snowflake-query-optimization
 
