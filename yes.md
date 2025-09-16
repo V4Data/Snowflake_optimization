@@ -85,6 +85,3 @@ Leverage Snowflake materialized views to scale analytics with superior cost-perf
 
 #Snowflake #DataEngineering #SQL #MaterializedViews #CloudData #DataOptimization
 ```
-
-You can now copy, save as `.md` file, and upload it to GitHub or any markdown viewer. Let me know if you need further help!
-
