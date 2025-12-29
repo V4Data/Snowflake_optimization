@@ -41,3 +41,4 @@ CALL SYSTEM$ICEBERG_REFRESH_TABLE('db.schema.table');
 ```
 
 Results: Real-time data visibility, 100% query accuracy, Metadata sync < 10s
+```
