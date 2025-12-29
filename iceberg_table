@@ -1,57 +1,30 @@
-```markdown
-# 🧊 Apache Iceberg Tables in Snowflake
+# Apache Iceberg Tables in Snowflake
 
-**Open table format** for data lakes combining Snowflake's query performance with external Parquet storage on S3/Azure/GCS. Supports ACID transactions, schema evolution, time travel, and hidden partitioning without data rewrites.[web:35][web:37]
+Open table format for data lakes combining Snowflake's query performance with external Parquet storage on S3/Azure/GCS. Supports ACID transactions, schema evolution, time travel, and hidden partitioning without data rewrites.
 
-## ✨ Key Features
-- **ACID Transactions**: Atomic commits across multi-table operations
-- **Schema Evolution**: Add/drop/rename columns without rewriting data
-- **Time Travel**: Query historical snapshots via `AT(TIMESTAMP => ...)`
-- **Hidden Partitioning**: Partition by columns without physical reorganization
-- **Snapshot Isolation**: Concurrent reads/writes without locking
+## Key Features
+- ACID Transactions: Atomic commits across multi-table operations
+- Schema Evolution: Add/drop/rename columns without rewriting data
+- Time Travel: Query historical snapshots via AT(TIMESTAMP => ...)
+- Hidden Partitioning: Partition by columns without physical reorganization
+- Snapshot Isolation: Concurrent reads/writes without locking
 
-## 📊 Table Types
+## Table Types
 
-| Type | Management | Read/Write | Interoperability | Best For |
-|------|------------|------------|------------------|----------|
-| **Snowflake-managed** | Snowflake catalog + External Volume | Full R/W | Limited (Snowflake-only writes) | Full Snowflake features, clustering, governance [web:35] |
-| **External-managed** | AWS Glue/Nessie + Catalog-linked DB | Read-only | Excellent (Spark/Trino/Databricks) | Cross-engine lakehouses [web:47] |
+| Type              | Management                  | Read/Write | Interoperability             | Best For                       |
+|-------------------|-----------------------------|------------|------------------------------|--------------------------------|
+| Snowflake-managed | Snowflake catalog + Volume  | Full R/W   | Limited (Snowflake-only)     | Full features, clustering      |
+| External-managed  | AWS Glue/Nessie + Catalog   | Read-only  | Excellent (Spark/Databricks) | Cross-engine lakehouses    |
 
-## 🚀 Quick Implementation
+## Quick Implementation
 
-```
--- Prerequisites: CREATE EXTERNAL VOLUME, STORAGE INTEGRATION
 CREATE ICEBERG TABLE stock_analysis (
-  symbol STRING,
-  price FLOAT,
-  date DATE,
-  volume BIGINT
+symbol STRING,
+price FLOAT,
+date DATE,
+volume BIGINT
 )
 PARTITIONED BY (date)
 CATALOG = 'SNOWFLAKE'
 EXTERNAL_VOLUME = 'my_s3_vol'
 BASE_LOCATION = 's3://bucket/iceberg/stock_tbl/';
-```
-
-**Insert & Query**:
-```
-INSERT INTO stock_analysis VALUES ('RELIANCE', 2500.5, '2025-12-29', 1000000);
-SELECT * FROM stock_analysis WHERE date = '2025-12-29';
--- Time travel: SELECT * FROM stock_analysis AT (SNAPSHOT => 'abc123');
-```
-
-## 💡 Data Engineer Benefits
-- **Medallion Architecture**: Bronze/Silver/Gold layers in open format
-- **Cost Control**: External storage billing, Snowflake compute only
-- **Governance**: Row access policies, masking, cloning on 5K+ objects
-- **Migration Path**: `ALTER TABLE native_tbl CONVERT TO ICEBERG`
-
-## ⚡ Optimization Tips
-```
--- Clustering (Snowflake-managed only)
-ALTER ICEBERG TABLE my_table CLUSTER BY (date, symbol);
-
--- Auto-refresh metadata
-CREATE ICEBERG TABLE ext_tbl (...) AUTO_REFRESH = TRUE;
-```
-
